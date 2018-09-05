@@ -1,0 +1,21 @@
+{
+  "name": "react-native-wxwork",
+  "version": "0.0.2",
+  "private": true,
+  "scripts": {
+    "start": "react-native start",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "test": "jest",
+    "bundle:android": "react-native bundle --entry-file index.js --bundle-output ./android/app/src/main/assets/main.jsbundle --dev false --platform android --assets-dest ./android/app/src/main/res/",
+    "clear:android": "rm -rf ./android/app/src/main/assets/*.*",
+    "copy:android": "curl http://localhost:8081/index.android.bundle?platform=android -o ./android/app/src/main/assets/index.android.bundle",
+    "build:android": "cd android && ./gradlew assembleRelease"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "dependencies": {
+    "react-native": "^0.56.0"
+  }
+}
