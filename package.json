@@ -1,6 +1,6 @@
 {
   "name": "react-native-wxwork",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "react-native library for wxwork app",
   "main": "index.js",
   "scripts": {
