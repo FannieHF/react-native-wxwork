@@ -1,6 +1,9 @@
 //
-//  WXWork.m
-//  WXWork
+//  RCTWeChat.m
+//  RCTWeChat
+//
+//  Created by Yorkie Liu on 10/16/15.
+//  Copyright © 2015 WeFlex. All rights reserved.
 //
 
 #import "WXWork.h"
@@ -8,19 +11,21 @@
 #import "WWKApiObject.h"
 #import <React/RCTEventDispatcher.h>
 #import <React/RCTBridge.h>
-#import <React/RCTLog.h>
 #import <React/RCTImageLoader.h>
+
+@interface WXWork () <WWKApiDelegate>
+
+@end
 
 // Define error messages
 #define NOT_REGISTERED (@"registerApp required.")
 #define INVOKE_FAILED (@"WeChat API invoke returns false.")
 
-
 @implementation WXWork
 
 @synthesize bridge = _bridge;
 
-RCT_EXPORT_MODULE()
+RCT_EXPORT_MODULE(WXWork)
 
 - (instancetype)init
 {
@@ -31,18 +36,17 @@ RCT_EXPORT_MODULE()
     return self;
 }
 
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
+//- (void)dealloc
+//{
+//    [[NSNotificationCenter defaultCenter] removeObserver:self];
+//}
 
 - (BOOL)handleOpenURL:(NSNotification *)aNotification
 {
     NSString * aURLString =  [aNotification userInfo][@"url"];
     NSURL * aURL = [NSURL URLWithString:aURLString];
-    
-    if ([WWKApi handleOpenURL:aURL delegate:self])
+
+    if ([WXApi handleOpenURL:aURL delegate:self])
     {
         return YES;
     } else {
@@ -50,18 +54,25 @@ RCT_EXPORT_MODULE()
     }
 }
 
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    return [self handleOpenURL:url sourceApplication:nil];
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(nullable NSString *)sourceApplication annotation:(id)annotation {
+    return [self handleOpenURL:url sourceApplication:sourceApplication];
+}
+
+- (BOOL)handleOpenURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication {
+    /*! @brief 处理外部调用URL的时候需要将URL传给SDK进行相关处理
+     * @param url 外部调用传入的url
+     * @param delegate 当前类需要实现WWKApiDelegate对应的方法
+     */
+    return [WWKApi handleOpenURL:url delegate:self];
+}
+
 - (dispatch_queue_t)methodQueue
 {
     return dispatch_get_main_queue();
-}
-
-+ (BOOL)requiresMainQueueSetup {
-    return YES;
-}
-
-- (NSArray<NSString *> *)supportedEvents
-{
-    return @[@"ssoResp", @"ssoError"];
 }
 
 RCT_EXPORT_METHOD(registerApp:(NSString *)appid
@@ -71,6 +82,7 @@ RCT_EXPORT_METHOD(registerApp:(NSString *)appid
     callback(@[[WXApi registerApp:appid] ? [NSNull null] : INVOKE_FAILED]);
 }
 
+//
 RCT_EXPORT_METHOD(registerWWApp:(NSString *)appid
                   :(NSString *)corpid
                   :(NSString *)agentid
@@ -110,11 +122,6 @@ RCT_EXPORT_METHOD(getWXAppInstallUrl:(RCTResponseSenderBlock)callback)
     callback(@[[NSNull null], [WXApi getWXAppInstallUrl]]);
 }
 
-RCT_EXPORT_METHOD(getWWAppInstallUrl:(RCTResponseSenderBlock)callback)
-{
-    callback(@[[NSNull null], [WWKApi getAppInstallUrl]]);
-}
-
 RCT_EXPORT_METHOD(getApiVersion:(RCTResponseSenderBlock)callback)
 {
     callback(@[[NSNull null], [WXApi getApiVersion]]);
@@ -125,10 +132,12 @@ RCT_EXPORT_METHOD(openWXApp:(RCTResponseSenderBlock)callback)
     callback(@[([WXApi openWXApp] ? [NSNull null] : INVOKE_FAILED)]);
 }
 
-RCT_EXPORT_METHOD(sendRequest:(RCTResponseSenderBlock)callback)
+RCT_EXPORT_METHOD(sendRequest:(NSString *)openid
+                  :(RCTResponseSenderBlock)callback)
 {
-    WWKBaseReq* req = [[WWKBaseReq alloc] init];
-    callback(@[[WWKApi sendReq:req] ? [NSNull null] : INVOKE_FAILED]);
+    BaseReq* req = [[BaseReq alloc] init];
+    req.openID = openid;
+    callback(@[[WXApi sendReq:req] ? [NSNull null] : INVOKE_FAILED]);
 }
 
 RCT_EXPORT_METHOD(sendAuthRequest:(NSString *)scope
@@ -142,10 +151,11 @@ RCT_EXPORT_METHOD(sendAuthRequest:(NSString *)scope
     callback(@[success ? [NSNull null] : INVOKE_FAILED]);
 }
 
-RCT_EXPORT_METHOD(sendSSORequest:(RCTResponseSenderBlock)callback)
+RCT_EXPORT_METHOD(sendSSORequest:(NSString *)state
+                  :(RCTResponseSenderBlock)callback)
 {
     WWKSSOReq* req = [[WWKSSOReq alloc] init];
-    req.state = @"adfasdfasdf23412341fqw4df14t134rtflajssf8934haioefy";
+    req.state = state;
     BOOL success = [WWKApi sendReq:req];
     callback(@[success ? [NSNull null] : INVOKE_FAILED]);
 }
@@ -377,18 +387,67 @@ RCT_EXPORT_METHOD(pay:(NSDictionary *)data
     callback(@[success ? [NSNull null] : INVOKE_FAILED]);
 }
 
-- (void)onResp:(WWKBaseResp *)resp {
-    RCTLogInfo(@"onResp##########->:%@",resp);
+#pragma mark - wx callback
+
+-(void) onReq:(BaseReq*)req
+{
+    // TODO(Yorkie)
+}
+
+-(void) onResp:(WWKBaseResp*)resp
+{
+//    if([resp isKindOfClass:[SendMessageToWXResp class]])
+//    {
+//        SendMessageToWXResp *r = (SendMessageToWXResp *)resp;
+//        
+//        NSMutableDictionary *body = @{@"errCode":@(r.errCode)}.mutableCopy;
+//        body[@"errStr"] = r.errStr;
+//        body[@"lang"] = r.lang;
+//        body[@"country"] =r.country;
+//        body[@"type"] = @"SendMessageToWX.Resp";
+//        [self.bridge.eventDispatcher sendDeviceEventWithName:RCTWXEventName body:body];
+//    } else if ([resp isKindOfClass:[SendAuthResp class]]) {
+//        SendAuthResp *r = (SendAuthResp *)resp;
+//        NSMutableDictionary *body = @{@"errCode":@(r.errCode)}.mutableCopy;
+//        body[@"errStr"] = r.errStr;
+//        body[@"state"] = r.state;
+//        body[@"lang"] = r.lang;
+//        body[@"country"] =r.country;
+//        body[@"type"] = @"SendAuth.Resp";
+//        
+//        if (resp.errCode == WXSuccess)
+//        {
+//            [body addEntriesFromDictionary:@{@"appid":self.appId, @"code" :r.code}];
+//            [self.bridge.eventDispatcher sendDeviceEventWithName:RCTWXEventName body:body];
+//        }
+//        else {
+//            [self.bridge.eventDispatcher sendDeviceEventWithName:RCTWXEventName body:body];
+//        }
+//    } else if ([resp isKindOfClass:[PayResp class]]) {
+//        PayResp *r = (PayResp *)resp;
+//        NSMutableDictionary *body = @{@"errCode":@(r.errCode)}.mutableCopy;
+//        body[@"errStr"] = r.errStr;
+//        body[@"type"] = @(r.type);
+//        body[@"returnKey"] =r.returnKey;
+//        body[@"type"] = @"PayReq.Resp";
+//        [self.bridge.eventDispatcher sendDeviceEventWithName:RCTWXEventName body:body];
+//    }
+    
     if ([resp isKindOfClass:[WWKSSOResp class]]) {
         WWKSSOResp *r = (WWKSSOResp *)resp;
         NSMutableDictionary *body = @{@"errCode":@(r.errCode)}.mutableCopy;
-        body[@"type"] = @"ssoResp";
         body[@"errStr"] = r.errStr;
-        [body addEntriesFromDictionary:@{@"appid":self.appId, @"code" :r.code}];
-        [self sendEventWithName:@"ssoResp" body:body];
+        body[@"state"] = r.state;
+        body[@"type"] = @"SendSSO.Resp";
+        if (resp.errCode == WXSuccess)
+        {
+            [body addEntriesFromDictionary:@{@"appid":self.appId, @"code" :r.code}];
+            [self.bridge.eventDispatcher sendDeviceEventWithName:RCTWXEventName body:body];
+        }
+        else {
+            [self.bridge.eventDispatcher sendDeviceEventWithName:RCTWXEventName body:body];
+        }
     }
 }
 
--(void) onReq:(WWKBaseReq*)req {
-}
 @end

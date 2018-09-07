@@ -1,13 +1,15 @@
 //
-//  WXWork.h
-//  WXWork
+//  RCTWeChat.h
+//  RCTWeChat
+//
+//  Created by Yorkie Liu on 10/16/15.
+//  Copyright © 2015 WeFlex. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
 #import <React/RCTBridgeModule.h>
-#import <React/RCTEventEmitter.h>
 #import "WXApi.h"
 #import "WWKApi.h"
 
@@ -28,7 +30,9 @@
 #define RCTWXShareWebpageUrl @"webpageUrl"
 #define RCTWXShareImageUrl @"imageUrl"
 
-@interface WXWork : RCTEventEmitter <RCTBridgeModule, WWKApiDelegate>
+#define RCTWXEventName @"WXWork_Resp"
+
+@interface WXWork : NSObject <RCTBridgeModule, WXApiDelegate>
 
 @property NSString* appId;
 
