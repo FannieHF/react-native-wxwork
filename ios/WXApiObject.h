@@ -7,8 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-
 
 /*! @brief 错误码
  *
@@ -223,6 +221,7 @@ typedef NS_ENUM(UInt64, enAppSupportContentFlag)
 @property (nonatomic, retain) NSString* lang;
 @property (nonatomic, retain) NSString* country;
 @end
+
 
 
 #pragma mark - SendMessageToWXReq

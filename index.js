@@ -220,6 +220,25 @@ export function sendWWAuthRequest(schema, appid, agentid) {
 }
 
 /**
+ * @method sendWWAuthRequest
+ * @param {Array} schema - the scopes for authentication.
+ * @return {Promise}
+ */
+export function sendSSORequest() {
+  return new Promise((resolve, reject) => {
+    WeChat.sendSSORequest(() => {});
+    emitter.once('SendAuth.Resp', resp => {
+      console.log(resp)
+      if (resp.errCode === 0) {
+        resolve(resp);
+      } else {
+        reject(new WechatError(resp));
+      }
+    });
+  });
+}
+
+/**
  * Share something to timeline/moments/朋友圈
  * @method shareToTimeline
  * @param {Object} data
