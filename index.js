@@ -144,6 +144,13 @@ export const isWWAppSupportApi = wrapApi(WeChat.isWWAppSupportApi);
 
 /**
  * Get the wechat app installed url
+ * @method getWWAppInstallUrl
+ * @return {String} the wechat app installed url
+ */
+export const getWWAppInstallUrl = wrapApi(WeChat.getWWAppInstallUrl);
+
+/**
+ * Get the wechat app installed url
  * @method getWXAppInstallUrl
  * @return {String} the wechat app installed url
  */
