@@ -1,6 +1,6 @@
 {
   "name": "react-native-wxwork",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "react-native library for wxwork app",
   "main": "index.js",
   "scripts": {
@@ -21,8 +21,7 @@
     "react-component"
   ],
   "dependencies": {
-    "events": "1.0.2",
-    "react-native": "^0.56.0"
+    "events": "1.0.2"
   },
   "peerDependencies": {
     "react-native": ">=0.40"
