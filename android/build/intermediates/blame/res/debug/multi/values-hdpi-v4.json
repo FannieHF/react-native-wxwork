@@ -1,0 +1,28 @@
+[
+    {
+        "outputFile": "/Users/Fanny/Github/react-native-wxwork/android/build/intermediates/incremental/mergeDebugResources/merged.dir/values-hdpi-v4/values-hdpi-v4.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endLine": 6,
+                    "endColumn": 13,
+                    "endOffset": 327
+                },
+                "from": {
+                    "file": "/Users/Fanny/.android/build-cache/62fc6481f62800dc69607cf5b015d98905d4c756/output/res/values-hdpi/values-hdpi.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 286,
+                        "endLine": 8,
+                        "endColumn": 13,
+                        "endOffset": 558
+                    }
+                }
+            }
+        ]
+    }
+]

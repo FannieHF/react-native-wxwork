@@ -1,0 +1,26 @@
+[
+    {
+        "outputFile": "/Users/Fanny/Github/react-native-wxwork/android/build/intermediates/incremental/mergeDebugResources/merged.dir/values-h720dp-v13/values-h720dp-v13.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 66,
+                    "endOffset": 117
+                },
+                "from": {
+                    "file": "/Users/Fanny/.android/build-cache/62fc6481f62800dc69607cf5b015d98905d4c756/output/res/values-h720dp/values-h720dp.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 283,
+                        "endColumn": 66,
+                        "endOffset": 345
+                    }
+                }
+            }
+        ]
+    }
+]

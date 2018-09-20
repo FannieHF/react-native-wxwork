@@ -1,0 +1,34 @@
+{
+    "logs": [
+        {
+            "outputFile": "/Users/Fanny/shukun/myshukun-app/node_modules/react-native-wxwork/android/build/intermediates/incremental/mergeReleaseResources/merged.dir/values-v24/values-v24.xml",
+            "map": [
+                {
+                    "source": "/Users/Fanny/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.1.aar/3f01a2870c29d16995ccf5da449da2fe/res/values-v24/values-v24.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,212",
+                        "endColumns": "156,134",
+                        "endOffsets": "207,342"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "/Users/Fanny/shukun/myshukun-app/node_modules/react-native-wxwork/android/build/intermediates/res/merged/release/values-v24/values-v24.xml",
+            "map": [
+                {
+                    "source": "/Users/Fanny/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.1.aar/3f01a2870c29d16995ccf5da449da2fe/res/values-v24/values-v24.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,212",
+                        "endColumns": "156,134",
+                        "endOffsets": "207,342"
+                    }
+                }
+            ]
+        }
+    ]
+}

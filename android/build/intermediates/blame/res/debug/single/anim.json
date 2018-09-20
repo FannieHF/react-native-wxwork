@@ -1,0 +1,50 @@
+[
+    {
+        "merged": "/Users/Fanny/Github/react-native-wxwork/android/build/intermediates/res/merged/debug/anim/abc_slide_out_top.xml",
+        "source": "/Users/Fanny/.android/build-cache/62fc6481f62800dc69607cf5b015d98905d4c756/output/res/anim/abc_slide_out_top.xml"
+    },
+    {
+        "merged": "/Users/Fanny/Github/react-native-wxwork/android/build/intermediates/res/merged/debug/anim/abc_fade_out.xml",
+        "source": "/Users/Fanny/.android/build-cache/62fc6481f62800dc69607cf5b015d98905d4c756/output/res/anim/abc_fade_out.xml"
+    },
+    {
+        "merged": "/Users/Fanny/Github/react-native-wxwork/android/build/intermediates/res/merged/debug/anim/catalyst_push_up_out.xml",
+        "source": "/Users/Fanny/.android/build-cache/c45b114fe555b287ecf0b77288c79f9dc899bc09/output/res/anim/catalyst_push_up_out.xml"
+    },
+    {
+        "merged": "/Users/Fanny/Github/react-native-wxwork/android/build/intermediates/res/merged/debug/anim/abc_slide_in_bottom.xml",
+        "source": "/Users/Fanny/.android/build-cache/62fc6481f62800dc69607cf5b015d98905d4c756/output/res/anim/abc_slide_in_bottom.xml"
+    },
+    {
+        "merged": "/Users/Fanny/Github/react-native-wxwork/android/build/intermediates/res/merged/debug/anim/abc_shrink_fade_out_from_bottom.xml",
+        "source": "/Users/Fanny/.android/build-cache/62fc6481f62800dc69607cf5b015d98905d4c756/output/res/anim/abc_shrink_fade_out_from_bottom.xml"
+    },
+    {
+        "merged": "/Users/Fanny/Github/react-native-wxwork/android/build/intermediates/res/merged/debug/anim/abc_grow_fade_in_from_bottom.xml",
+        "source": "/Users/Fanny/.android/build-cache/62fc6481f62800dc69607cf5b015d98905d4c756/output/res/anim/abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "/Users/Fanny/Github/react-native-wxwork/android/build/intermediates/res/merged/debug/anim/abc_popup_enter.xml",
+        "source": "/Users/Fanny/.android/build-cache/62fc6481f62800dc69607cf5b015d98905d4c756/output/res/anim/abc_popup_enter.xml"
+    },
+    {
+        "merged": "/Users/Fanny/Github/react-native-wxwork/android/build/intermediates/res/merged/debug/anim/abc_fade_in.xml",
+        "source": "/Users/Fanny/.android/build-cache/62fc6481f62800dc69607cf5b015d98905d4c756/output/res/anim/abc_fade_in.xml"
+    },
+    {
+        "merged": "/Users/Fanny/Github/react-native-wxwork/android/build/intermediates/res/merged/debug/anim/abc_slide_out_bottom.xml",
+        "source": "/Users/Fanny/.android/build-cache/62fc6481f62800dc69607cf5b015d98905d4c756/output/res/anim/abc_slide_out_bottom.xml"
+    },
+    {
+        "merged": "/Users/Fanny/Github/react-native-wxwork/android/build/intermediates/res/merged/debug/anim/abc_slide_in_top.xml",
+        "source": "/Users/Fanny/.android/build-cache/62fc6481f62800dc69607cf5b015d98905d4c756/output/res/anim/abc_slide_in_top.xml"
+    },
+    {
+        "merged": "/Users/Fanny/Github/react-native-wxwork/android/build/intermediates/res/merged/debug/anim/abc_popup_exit.xml",
+        "source": "/Users/Fanny/.android/build-cache/62fc6481f62800dc69607cf5b015d98905d4c756/output/res/anim/abc_popup_exit.xml"
+    },
+    {
+        "merged": "/Users/Fanny/Github/react-native-wxwork/android/build/intermediates/res/merged/debug/anim/catalyst_push_up_in.xml",
+        "source": "/Users/Fanny/.android/build-cache/c45b114fe555b287ecf0b77288c79f9dc899bc09/output/res/anim/catalyst_push_up_in.xml"
+    }
+]
