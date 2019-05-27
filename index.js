@@ -1,16 +1,21 @@
-'use strict';
+"use strict";
 
-import { DeviceEventEmitter, NativeModules, Platform, NativeEventEmitter } from 'react-native';
-import { EventEmitter } from 'events';
+import {
+  DeviceEventEmitter,
+  NativeModules,
+  Platform,
+  NativeEventEmitter
+} from "react-native";
+import { EventEmitter } from "events";
 
 let isAppRegistered = false;
-const { WeChat } = NativeModules;
+const { RNWxwork } = NativeModules;
 
-// Event emitter to dispatch request and response from WeChat.
+// Event emitter to dispatch request and response from RNWxwork.
 const emitter = new EventEmitter();
-const WXWorkEmitter = new NativeEventEmitter(WeChat);
+const WXWorkEmitter = new NativeEventEmitter(RNWxwork);
 
-DeviceEventEmitter.addListener('WeChat_Resp', resp => {
+DeviceEventEmitter.addListener("WeChat_Resp", resp => {
   emitter.emit(resp.type, resp);
 });
 
@@ -31,11 +36,11 @@ function wrapRegisterApp(nativeFunc) {
           if (!error) {
             return resolve(result);
           }
-          if (typeof error === 'string') {
+          if (typeof error === "string") {
             return reject(new Error(error));
           }
           reject(error);
-        },
+        }
       ]);
     });
   };
@@ -47,7 +52,7 @@ function wrapApi(nativeFunc) {
   }
   return (...args) => {
     if (!isAppRegistered) {
-      return Promise.reject(new Error('registerApp required.'));
+      return Promise.reject(new Error("registerApp required."));
     }
     return new Promise((resolve, reject) => {
       nativeFunc.apply(null, [
@@ -56,11 +61,11 @@ function wrapApi(nativeFunc) {
           if (!error) {
             return resolve(result);
           }
-          if (typeof error === 'string') {
+          if (typeof error === "string") {
             return reject(new Error(error));
           }
           reject(error);
-        },
+        }
       ]);
     });
   };
@@ -94,14 +99,14 @@ export const removeAllListeners = emitter.removeAllListeners.bind(emitter);
  * @param {String} appid - the app id
  * @return {Promise}
  */
-export const registerApp = wrapRegisterApp(WeChat.registerApp);
+export const registerApp = wrapRegisterApp(RNWxwork.registerApp);
 
 /**
  * @method registerWWApp
  * @param {String} schema - schema
  * @return {Promise}
  */
-export const registerWWApp = wrapRegisterApp(WeChat.registerWWApp);
+export const registerWWApp = wrapRegisterApp(RNWxwork.registerWWApp);
 
 /**
  * @method registerAppWithDescription
@@ -110,85 +115,84 @@ export const registerWWApp = wrapRegisterApp(WeChat.registerWWApp);
  * @return {Promise}
  */
 export const registerAppWithDescription = wrapRegisterApp(
-  WeChat.registerAppWithDescription,
-);
+         RNWxwork.registerAppWithDescription
+       );
 
 /**
  * Return if the wechat app is installed in the device.
  * @method isWXAppInstalled
  * @return {Promise}
  */
-export const isWXAppInstalled = wrapApi(WeChat.isWXAppInstalled);
+export const isWXAppInstalled = wrapApi(RNWxwork.isWXAppInstalled);
 
 /**
  * Return if the wechat app is installed in the device.
  * @method isWXAppInstalled
  * @return {Promise}
  */
-export const isWWAppInstalled = wrapApi(WeChat.isWWAppInstalled);
-
+export const isWWAppInstalled = wrapApi(RNWxwork.isWWAppInstalled);
 
 /**
  * Return if the wechat application supports the api
  * @method isWXAppSupportApi
  * @return {Promise}
  */
-export const isWXAppSupportApi = wrapApi(WeChat.isWXAppSupportApi);
+export const isWXAppSupportApi = wrapApi(RNWxwork.isWXAppSupportApi);
 
 /**
  * Return if the wechat application supports the api
  * @method isWWAppSupportApi
  * @return {Promise}
  */
-export const isWWAppSupportApi = wrapApi(WeChat.isWWAppSupportApi);
+export const isWWAppSupportApi = wrapApi(RNWxwork.isWWAppSupportApi);
 
 /**
  * Get the wechat app installed url
  * @method getWWAppInstallUrl
  * @return {String} the wechat app installed url
  */
-export const getWWAppInstallUrl = wrapApi(WeChat.getWWAppInstallUrl);
+export const getWWAppInstallUrl = wrapApi(RNWxwork.getWWAppInstallUrl);
 
 /**
  * Get the wechat app installed url
  * @method getWXAppInstallUrl
  * @return {String} the wechat app installed url
  */
-export const getWXAppInstallUrl = wrapApi(WeChat.getWXAppInstallUrl);
+export const getWXAppInstallUrl = wrapApi(RNWxwork.getWXAppInstallUrl);
 
 /**
  * Get the wechat api version
  * @method getApiVersion
  * @return {String} the api version string
  */
-export const getApiVersion = wrapApi(WeChat.getApiVersion);
+export const getApiVersion = wrapApi(RNWxwork.getApiVersion);
 
 /**
  * Get the wxwork api version
  * @method getWWApiVersion
  * @return {String} the api version string
  */
-export const getWWApiVersion = wrapApi(WeChat.getWWApiVersion);
+export const getWWApiVersion = wrapApi(RNWxwork.getWWApiVersion);
 
 /**
  * Open wechat app
  * @method openWXApp
  * @return {Promise}
  */
-export const openWXApp = wrapApi(WeChat.openWXApp);
+export const openWXApp = wrapApi(RNWxwork.openWXApp);
 
 /**
  * Open wxwork app
  * @method openWWApp
  * @return {Promise}
  */
-export const openWWApp = wrapApi(WeChat.openWWApp);
+export const openWWApp = wrapApi(RNWxwork.openWWApp);
 
 // wrap the APIs
-const nativeShareToTimeline = wrapApi(WeChat.shareToTimeline);
-const nativeShareToSession = wrapApi(WeChat.shareToSession);
-const nativeShareToFavorite = wrapApi(WeChat.shareToFavorite);
-const nativeSendAuthRequest = wrapApi(WeChat.sendAuthRequest);
+const nativeShareToTimeline = wrapApi(RNWxwork.shareToTimeline);
+const nativeShareToSession = wrapApi(RNWxwork.shareToSession);
+const nativeShareToFavorite = wrapApi(RNWxwork.shareToFavorite);
+const nativeSendAuthRequest = wrapApi(RNWxwork.sendAuthRequest);
 
 /**
  * @method sendAuthRequest
@@ -197,8 +201,8 @@ const nativeSendAuthRequest = wrapApi(WeChat.sendAuthRequest);
  */
 export function sendAuthRequest(scopes, state) {
   return new Promise((resolve, reject) => {
-    WeChat.sendAuthRequest(scopes, state, () => {});
-    emitter.once('SendAuth.Resp', resp => {
+    RNWxwork.sendAuthRequest(scopes, state, () => {});
+    emitter.once("SendAuth.Resp", resp => {
       if (resp.errCode === 0) {
         resolve(resp);
       } else {
@@ -215,8 +219,8 @@ export function sendAuthRequest(scopes, state) {
  */
 export function sendWWAuthRequest(schema, appid, agentid) {
   return new Promise((resolve, reject) => {
-    WeChat.sendWWAuthRequest(schema, appid, agentid, () => {});
-    emitter.once('SendAuth.Resp', resp => {
+    RNWxwork.sendWWAuthRequest(schema, appid, agentid, () => {});
+    emitter.once("SendAuth.Resp", resp => {
       if (resp.errCode === 0) {
         resolve(resp);
       } else {
@@ -233,9 +237,9 @@ export function sendWWAuthRequest(schema, appid, agentid) {
  */
 export function sendSSORequest() {
   return new Promise((resolve, reject) => {
-    WeChat.sendSSORequest(() => {});
-    emitter.once('SendAuth.Resp', resp => {
-      console.log(resp)
+    RNWxwork.sendSSORequest(() => {});
+    emitter.once("SendAuth.Resp", resp => {
+      console.log(resp);
       if (resp.errCode === 0) {
         resolve(resp);
       } else {
@@ -261,7 +265,7 @@ export function sendSSORequest() {
 export function shareToTimeline(data) {
   return new Promise((resolve, reject) => {
     nativeShareToTimeline(data);
-    emitter.once('SendMessageToWX.Resp', resp => {
+    emitter.once("SendMessageToWX.Resp", resp => {
       if (resp.errCode === 0) {
         resolve(resp);
       } else {
@@ -287,7 +291,7 @@ export function shareToTimeline(data) {
 export function shareToSession(data) {
   return new Promise((resolve, reject) => {
     nativeShareToSession(data);
-    emitter.once('SendMessageToWX.Resp', resp => {
+    emitter.once("SendMessageToWX.Resp", resp => {
       if (resp.errCode === 0) {
         resolve(resp);
       } else {
@@ -313,7 +317,7 @@ export function shareToSession(data) {
 export function shareToFavorite(data) {
   return new Promise((resolve, reject) => {
     nativeShareToFavorite(data);
-    emitter.once('SendMessageToWX.Resp', resp => {
+    emitter.once("SendMessageToWX.Resp", resp => {
       if (resp.errCode === 0) {
         resolve(resp);
       } else {
@@ -344,20 +348,20 @@ export function pay(data) {
       delete data[actual];
     }
   }
-  correct('prepayid', 'prepayId');
-  correct('noncestr', 'nonceStr');
-  correct('partnerid', 'partnerId');
-  correct('timestamp', 'timeStamp');
-  
+  correct("prepayid", "prepayId");
+  correct("noncestr", "nonceStr");
+  correct("partnerid", "partnerId");
+  correct("timestamp", "timeStamp");
+
   // FIXME(94cstyles)
   // Android requires the type of the timeStamp field to be a string
-  if (Platform.OS === 'android') data.timeStamp = String(data.timeStamp)
+  if (Platform.OS === "android") data.timeStamp = String(data.timeStamp);
 
   return new Promise((resolve, reject) => {
-    WeChat.pay(data, result => {
+    RNWxwork.pay(data, result => {
       if (result) reject(result);
     });
-    emitter.once('PayReq.Resp', resp => {
+    emitter.once("PayReq.Resp", resp => {
       if (resp.errCode === 0) {
         resolve(resp);
       } else {
@@ -374,12 +378,12 @@ export class WechatError extends Error {
   constructor(resp) {
     const message = resp.errStr || resp.errCode.toString();
     super(message);
-    this.name = 'WechatError';
+    this.name = "WechatError";
     this.code = resp.errCode;
 
     // avoid babel's limition about extending Error class
     // https://github.com/babel/babel/issues/3083
-    if (typeof Object.setPrototypeOf === 'function') {
+    if (typeof Object.setPrototypeOf === "function") {
       Object.setPrototypeOf(this, WechatError.prototype);
     } else {
       this.__proto__ = WechatError.prototype;
@@ -387,3 +391,4 @@ export class WechatError extends Error {
   }
 }
 
+export default RNWxwork;
