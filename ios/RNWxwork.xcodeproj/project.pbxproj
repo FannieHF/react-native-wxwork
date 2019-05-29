@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3629E510229BD41000411D92 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3629E50F229BD41000411D92 /* libWeChatSDK.a */; };
 		3629E512229BD41C00411D92 /* libWXWorkApi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3629E511229BD41C00411D92 /* libWXWorkApi.a */; };
+		36F34857229E5F4E006DEE44 /* RNWxwork.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B3E7B5881CC2AC0600A0062D /* RNWxwork.h */; };
 		B3E7B58A1CC2AC0600A0062D /* RNWxwork.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* RNWxwork.m */; };
 /* End PBXBuildFile section */
 
@@ -19,6 +20,7 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				36F34857229E5F4E006DEE44 /* RNWxwork.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
